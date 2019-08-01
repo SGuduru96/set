@@ -9,19 +9,24 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var card: SetCardView! {
-        didSet {
-            let tap = UITapGestureRecognizer(target: self, action: #selector(card.handleTap(sender:)))
-            card.addGestureRecognizer(tap)
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Place a SetCardView on the root view
+        let setCard = SetCardView(frame: CGRect(x: 0, y: 100, width: 200, height: 150))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tappedCard(_:)))
+        setCard.addGestureRecognizer(tap)
+        
+        self.view.addSubview(setCard)
         // Do any additional setup after loading the view.
     }
-
+    
+    @objc func tappedCard(_ sender: UITapGestureRecognizer) {
+         if let card = sender.view as! SetCardView? {
+            card.selected = !card.selected
+        }
+    }
 
 }
 

@@ -11,10 +11,17 @@ import UIKit
 @IBDesignable
 class SetCardView: UIView {
     
+    // Instance Variables
+    var shape: Shape = .oval { didSet { setNeedsDisplay() } }
+    @IBInspectable var color: UIColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1) { didSet{ setNeedsDisplay() } }
+    var shade: Shade = .open { didSet{ setNeedsDisplay() } }
+    var selected = false { didSet { setNeedsDisplay() } }
+    private var cardColor: UIColor { get { return selected ? #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1) : #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) } }
+    
     @IBInspectable var number: Int = 1 {
         didSet {
             if number < 1 {
-              number = 1
+                number = 1
             } else if number > 3  {
                 number = 3
             }
@@ -23,74 +30,10 @@ class SetCardView: UIView {
         }
     }
     
-    var shape: Shape = .oval { didSet { setNeedsDisplay() } }
-    
-//    @IBInspectable var inspectableShape: Int {
-//        get {
-//            switch shape {
-//            case .diamond: return 0
-//            case .squiggle: return 1
-//            case .oval: return 2
-//            }
-//        }
-//
-//        set {
-//            switch newValue {
-//            case 1: shape = .diamond
-//            case 2: shape = .squiggle
-//            case 3: shape = .oval
-//            default: shape = .oval
-//            }
-//        }
-//    }
-    
-    @IBInspectable var color: UIColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1) { didSet{ setNeedsDisplay() } }
-    var shade: Shade = .open { didSet{ setNeedsDisplay() } }
-    
-//    @IBInspectable var inspectableShade: Int {
-//        get {
-//            switch shade {
-//            case .solid: return 0
-//            case .striped: return 1
-//            case .open: return 2
-//            }
-//        }
-//        
-//        set {
-//            switch newValue {
-//            case 1: shade = .solid
-//            case 2: shade = .striped
-//            case 3: shade = .open
-//            default: shade = .open
-//            }
-//        }
-//    }
-    
-    var selected = false {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
-    
-    @objc func handleTap(sender: UITapGestureRecognizer) {
-        if sender.state == .ended {
-            selected = !selected
-        }
-    }
-    
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
-        if selected {
-            self.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        } else {
-            self.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-        }
-        
         let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-        print(cornerRadius)
         roundedRect.addClip()
-        UIColor.white.setFill()
+        cardColor.setFill()
         roundedRect.fill()
         
         // Define x coordiates for the shape(s)

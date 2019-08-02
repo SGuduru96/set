@@ -67,8 +67,8 @@ class ViewController: UIViewController {
 //        print(frame)
 //        let insetFrame = frame.insetBy(dx: 10.0, dy: 0)
 //        print(insetFrame)
-        let setCard = SetCardView(frame: insetFrame)
-        print(setCard.frame)
+        let setCard = SetCardView(frame: frame)
+//        print(setCard.frame)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(tappedCard(_:)))
         setCard.addGestureRecognizer(tap)

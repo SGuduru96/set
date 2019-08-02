@@ -10,16 +10,37 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var playingFieldView: UIView!
+    private var startingNumberOfCards = 3
+    private var listOfSetCardViews = [SetCardView]()
+    lazy var setGame = SetGame(withNumberOfCards: startingNumberOfCards)
+    lazy private var grid = Grid(layout: Grid.Layout.aspectRatio(1.5), frame: playingFieldView.bounds)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Place a SetCardView on the root view
-        let setCard = SetCardView(frame: CGRect(x: 0, y: 100, width: 200, height: 150))
+        grid.cellCount = startingNumberOfCards
+        
+        for i in 0..<startingNumberOfCards {
+            if let frame = grid[i] {
+                createCardAndSetup(withFrame: frame)
+            }
+        }
+    }
+    
+    /*
+     Creates a SetCardView given it's properties.
+     Adds a tap gesture recognizer to it.
+     Finally, adds the view to listOfSetCardViews
+     and as a suview of thePlayingFieldView.
+     */
+    func createCardAndSetup(withFrame frame: CGRect) {
+        //TODO: use .inset() on frame to add space between cards
+        let setCard = SetCardView(frame: frame)
         let tap = UITapGestureRecognizer(target: self, action: #selector(tappedCard(_:)))
         setCard.addGestureRecognizer(tap)
-        
-        self.view.addSubview(setCard)
-        // Do any additional setup after loading the view.
+        listOfSetCardViews.append(setCard)
+        playingFieldView.addSubview(setCard)
     }
     
     @objc func tappedCard(_ sender: UITapGestureRecognizer) {

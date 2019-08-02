@@ -28,7 +28,8 @@ class SetGame {
         startingNumberOfCards = numCards
         startingDeal = createDealFunction(whichDeals: numCards)
         dealThreeCards = createDealFunction(whichDeals: 3)
-        startingDeal()
+        let dealt = startingDeal()
+        assert(dealt, "Starting Deal of \(startingNumberOfCards) failed.")
     }
     
     func resetGame() {
@@ -37,7 +38,8 @@ class SetGame {
         matchedCards = [SetCard]()
         score = 0
         dealtCards = [SetCard]()
-        startingDeal()
+        let dealt = startingDeal()
+        assert(dealt, "Starting Deal of \(startingNumberOfCards) failed.")
     }
     
     func createDealFunction(whichDeals numCards: Int) -> () -> Bool {

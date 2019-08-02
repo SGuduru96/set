@@ -30,6 +30,18 @@ class SetCardView: UIView {
         }
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+        contentMode = .redraw
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+        contentMode = .redraw
+    }
+    
     override func draw(_ rect: CGRect) {
         let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         roundedRect.addClip()

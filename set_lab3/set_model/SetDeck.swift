@@ -13,10 +13,10 @@ struct SetDeck {
     private(set) var count = 0
     
     init() {
-        for number in SetCard.Number.all {
-            for shape in SetCard.Shape.all {
-                for shade in SetCard.Shade.all {
-                    for color in SetCard.Color.all {
+        for number in Number.all {
+            for shape in Shape.all {
+                for shade in Shade.all {
+                    for color in Color.all {
                         cards.append(SetCard(number, shape, shade, color))
                         count += 1
                     }

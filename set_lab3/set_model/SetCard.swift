@@ -42,36 +42,36 @@ struct SetCard: Equatable {
     static func !=(lhs: SetCard, rhs: SetCard) -> Bool {
         return lhs.numberOfShapes != rhs.numberOfShapes || lhs.shape != rhs.shape || lhs.shade != rhs.shade || lhs.color != rhs.color
     }
+}
+
+enum Number: Int, CaseIterable {
+    case one = 1
+    case two = 2
+    case three = 3
     
-    enum Number: CaseIterable {
-        case one
-        case two
-        case three
-        
-        static let all = [Number.one, .two, .three]
-    }
+    static let all = [Number.one, .two, .three]
+}
+
+enum Shape: CaseIterable {
+    case diamond
+    case squiggle
+    case oval
     
-    enum Shape: CaseIterable {
-        case diamond
-        case squiggle
-        case oval
-        
-        static let all = [Shape.diamond, .squiggle, .oval]
-    }
+    static let all = [Shape.diamond, .squiggle, .oval]
+}
+
+enum Shade: CaseIterable {
+    case solid
+    case striped
+    case open
     
-    enum Shade: CaseIterable {
-        case solid
-        case striped
-        case open
-        
-        static let all = [Shade.solid, .striped, .open]
-    }
+    static let all = [Shade.solid, .striped, .open]
+}
+
+enum Color: CaseIterable {
+    case red
+    case green
+    case purple
     
-    enum Color: CaseIterable {
-        case red
-        case green
-        case purple
-        
-        static let all = [Color.red, .green, .purple]
-    }
+    static let all = [Color.red, .green, .purple]
 }

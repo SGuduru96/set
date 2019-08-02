@@ -42,6 +42,13 @@ class SetCardView: UIView {
         contentMode = .redraw
     }
     
+    func setCardProperties(toNumber number: Number, ofShape shape: Shape, withShade shade: Shade, ofColor color: UIColor) {
+        self.number = number.rawValue
+        self.shape = shape
+        self.shade = shade
+        self.color = color
+    }
+    
     override func draw(_ rect: CGRect) {
         let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         roundedRect.addClip()
@@ -111,18 +118,6 @@ class SetCardView: UIView {
         
         clipPath.addClip()
         return clipPath
-    }
-
-    enum Shape: Int {
-        case diamond
-        case squiggle
-        case oval
-    }
-    
-    enum Shade: Int {
-        case solid
-        case striped
-        case open
     }
 }
 

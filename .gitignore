@@ -2,6 +2,8 @@
 ## Build generated
 build/
 DerivedData/ 
+
 ## Various settings
 *.pbxuser
-xcuserdata/
+*xcuserdata/
+set_lab3.xcodeproj/project.xcworkspace/xcuserdata/sunny.xcuserdatad/UserInterfaceState.xcuserstate

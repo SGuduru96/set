@@ -47,7 +47,10 @@ class ViewController: UIViewController {
             }
 
             // Set the current cardView to the properties of the current card from dealtCards
-            cardView.setCardProperties(toNumber: setCard.numberOfShapes, ofShape: setCard.shape, withShade: setCard.shade, ofColor: color)
+            cardView.setCardProperties(toNumber: setCard.numberOfShapes,
+                                       ofShape: setCard.shape,
+                                       withShade: setCard.shade,
+                                       ofColor: color)
 
             // Set the frame for the cardView
             if grid[cardIndex] != nil {
@@ -79,7 +82,12 @@ class ViewController: UIViewController {
     
     @objc func tappedCard(_ sender: UITapGestureRecognizer) {
          if let card = sender.view as! SetCardView? {
-            card.selected = !card.selected
+//            card.selected = !card.selected
+            
+            // find the index of card in listOfSetCardViews
+            if let cardNumber = listOfSetCardViews.firstIndex(of: card) {
+                game.chooseCard(at: cardNumber)
+            }
         }
     }
 

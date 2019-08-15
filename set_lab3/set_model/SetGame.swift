@@ -32,6 +32,7 @@ class SetGame {
         assert(dealt, "Starting Deal of \(startingNumberOfCards) failed.")
     }
     
+    
     func resetGame() {
         cardDeck = SetDeck()
         selectedCards = [SetCard]()

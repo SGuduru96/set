@@ -54,7 +54,7 @@ Here's why:
 What the SetCardViews look like:
 <img src="https://github.com/SGuduru96/set/blob/master/readme_assets/shape_1.png" alt="Two purple striped ovals on a card"/>
 <img src="https://github.com/SGuduru96/set/blob/master/readme_assets/shape_2.png" alt="One red squiggle on a card"/>
-<img src="https://github.com/SGuduru96/set/blob/master/readme_assets/shape_3.png"alt="One green outlined diamond on a card"/>
+<img src="https://github.com/SGuduru96/set/blob/master/readme_assets/shape_3.png" alt="One green outlined diamond on a card"/>
 They're capable of displaying 1 to 3 shapes on there, all of the same type, and a given color and pattern.
 The sizing of the graphics is also based on constants that I defined that are multiplied by the width and hight of the card.
 These constants are defined as static and written in an extension to the SetCardView.

@@ -52,7 +52,8 @@ Here's why:
 - To eventually add some animation when the card is selected.
 
 What the SetCardViews look like:
-  <img src="https://github.com/SGuduru96/set/blob/master/readme_assets/shape_4.png" width = "100" alt="4 cards with shapes on them. From top left: 2 striped purple ovals, 1 solid purple oval, 2 striped green ovals, 2 striped red diamonds."/>
+
+<img src="https://github.com/SGuduru96/set/blob/master/readme_assets/shape_4.png" width = "400" alt="4 cards with shapes on them. From top left: 2 striped purple ovals, 1 solid purple oval, 2 striped green ovals, 2 striped red diamonds."/>
   
 They're capable of displaying 1 to 3 shapes on there, all of the same type, and a given color and pattern.
 The sizing of the graphics is also based on constants that I defined that are multiplied by the width and hight of the card.

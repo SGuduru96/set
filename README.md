@@ -1,3 +1,4 @@
+
 # Set iOS Game
 A matching game on iOS based on "Set!".
 
@@ -9,7 +10,7 @@ A matching game on iOS based on "Set!".
 - Unit testing for the model
 
 ## Details about the Model
-Since the game model is supposed to be compleatly independent and blind to user interfaces, I spent a lot of time thinking about the essential information needed for the application.
+Since the game model is supposed to be completely independent and blind to user interfaces, I spent a lot of time thinking about the essential information needed for the application.
 
 After a lot of thought I decided on the following for a public api for the game model
 
@@ -40,7 +41,7 @@ Where all four of these properties are enums.
 Most importantly, SetCard has a method called match that checks if a card matches with two other cards.
 
 ### SetDeck struct
-This struct on init creates an instance of every possible card propriety combintation (81 of them).
+This struct on init creates an instance of every possible card propriety combination (81 of them).
 It also has a function called draw that draws one random card from the deck.
 
 ## Details about the Set Card View
@@ -50,4 +51,10 @@ Here's why:
 - To learn about gesture recognizers.
 - To eventually add some animation when the card is selected.
 
-What the shapes look like:
+What the SetCardViews look like:
+<img src="https://github.com/SGuduru96/set/blob/master/readme_assets/shape_1.png" alt="Two purple striped ovals on a card"/>
+<img src="https://github.com/SGuduru96/set/blob/master/readme_assets/shape_2.png" alt="One red squiggle on a card"/>
+<img src="https://github.com/SGuduru96/set/blob/master/readme_assets/shape_3.png"alt="One green outlined diamond on a card"/>
+They're capable of displaying 1 to 3 shapes on there, all of the same type, and a given color and pattern.
+The sizing of the graphics is also based on constants that I defined that are multiplied by the width and hight of the card.
+These constants are defined as static and written in an extension to the SetCardView.

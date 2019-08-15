@@ -52,6 +52,7 @@ Here's why:
 - To eventually add some animation when the card is selected.
 
 What the SetCardViews look like:
+
 <img src="https://github.com/SGuduru96/set/blob/master/readme_assets/shape_1.png" alt="Two purple striped ovals on a card"/>
 <img src="https://github.com/SGuduru96/set/blob/master/readme_assets/shape_2.png" alt="One red squiggle on a card"/>
 <img src="https://github.com/SGuduru96/set/blob/master/readme_assets/shape_3.png" alt="One green outlined diamond on a card"/>

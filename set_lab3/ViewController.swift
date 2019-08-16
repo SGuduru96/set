@@ -18,10 +18,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateViewFromModel()
-    }
-    
-    private func updateViewFromModel() {
+        
         // Let grid know how many cards we will have to display
         grid.cellCount = game.dealtCards.count
         
@@ -34,6 +31,10 @@ class ViewController: UIViewController {
             }
         }
         
+        updateViewFromModel()
+    }
+    
+    private func updateViewFromModel() {
         // Configure each cardView with properties from the game.dealtCards
         for cardIndex in listOfSetCardViews.indices {
             let setCard = game.dealtCards[cardIndex]
@@ -54,7 +55,8 @@ class ViewController: UIViewController {
 
             // Set the frame for the cardView
             if grid[cardIndex] != nil {
-                cardView.frame = grid[cardIndex]!
+                // Add padding by insetting the frame for card
+                cardView.frame = grid[cardIndex]!.insetBy(dx: 10, dy: 10)
             }
         }
     }
@@ -66,13 +68,7 @@ class ViewController: UIViewController {
      and as a suview of thePlayingFieldView.
      */
     private func createCardAndSetup(withFrame frame: CGRect) {
-        //TODO: use .inset() on frame to add space between cards
-//        print(frame)
-//        let insetFrame = frame.insetBy(dx: 10.0, dy: 0)
-//        print(insetFrame)
         let setCard = SetCardView(frame: frame)
-//        print(setCard.frame)
-        
         let tap = UITapGestureRecognizer(target: self, action: #selector(tappedCard(_:)))
         setCard.addGestureRecognizer(tap)
         

@@ -10,13 +10,35 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    // MARK: Outlets
     @IBOutlet weak var playingFieldView: UIView!
     @IBOutlet weak var dealCardsButton: UIButton!
+    @IBOutlet weak var newGameButton: UIButton!
+    @IBOutlet weak var scoreLabel: UILabel!
+    
+    // MARK: Properties
     private var startingNumberOfCards = 12
     private var listOfSetCardViews = [SetCardView]()
     lazy var game = SetGame(withNumberOfCards: startingNumberOfCards)
     lazy private var grid = Grid(layout: Grid.Layout.aspectRatio(1.5), frame: playingFieldView.bounds)
 
+    // MARK: Actions
+    @IBAction func newGamePressed(_ sender: UIButton) {
+        game.resetGame()
+        updateViewFromModel()
+    }
+    
+    @IBAction func dealThreeCards(_ sender: UIButton) {
+        dealCards()
+    }
+    
+    @IBAction func swipeHandler(_ gestureRecognizer: UISwipeGestureRecognizer) {
+        if gestureRecognizer.state == .ended {
+            dealCards()
+        }
+    }
+    
+    // MARK: Lifecycle Responders
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,9 +51,21 @@ class ViewController: UIViewController {
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // update grid frame and then change card frames
+        grid.frame = playingFieldView.bounds
+        updateCardFramesFromGrid()
+    }
+    
+    // MARK: Game Management Functions
     private func updateViewFromModel() {
         // update grid cellcount
         grid.cellCount = game.dealtCards.count
+        
+        // Update the score label
+        scoreLabel.text = "Score: \(game.score)"
         
         // If there is a match, we need to remove matched cards from listOfCardViews
         if game.matchState == .match {
@@ -69,7 +103,8 @@ class ViewController: UIViewController {
         
         updateCardFramesFromGrid()
     }
-
+    
+    // Reassign grid frames for each card
     private func updateCardFramesFromGrid() {
         for cardIndex in listOfSetCardViews.indices {
             if let cardFrameInGrid = grid[cardIndex]?.insetBy(dx: 8, dy: 8) {
@@ -78,21 +113,23 @@ class ViewController: UIViewController {
         }
     }
     
+    // Creates as many cards as there are dealt cards
     private func createCards() {
         for cardIndex in game.dealtCards.indices {
+            // Create cardView and assign properties
             let cardView = createCardAndSetup(withFrame: grid[cardIndex]!)
             setProperties(forCardView: cardView, fromCardModel: game.dealtCards[cardIndex])
+            
+            // Add to array of cardViews and add to parent view
             listOfSetCardViews.append(cardView)
             playingFieldView.addSubview(cardView)
         }
-//        (0..<grid.cellCount).forEach {
-//            if grid[$0] != nil {
-//                createCardAndSetup(withFrame: grid[$0]!)
-//            }
-//        }
     }
     
+    // Set properties for a cardView given a cardModel
     private func setProperties(forCardView cardView: SetCardView, fromCardModel cardModel: SetCard) {
+        
+        // Assign UIColor based on enum case
         var color = UIColor()
         switch cardModel.color {
         case .red: color = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
@@ -104,12 +141,28 @@ class ViewController: UIViewController {
     }
     
     private func createCardAndSetup(withFrame cardFrame: CGRect) -> SetCardView {
+        // Create a tap gestureRecognizer and a cardView
         let tap = UITapGestureRecognizer(target: self, action: #selector(tappedCard(_:)))
-        let setCard = SetCardView(frame: cardFrame.insetBy(dx: 8, dy: 8))
-        setCard.addGestureRecognizer(tap)
-        return setCard
+        
+        // Inset the card frame by 8 on dx and dy
+        let cardView = SetCardView(frame: cardFrame.insetBy(dx: 8, dy: 8))
+        
+        // Assign gesture recognizer to cardView
+        cardView.addGestureRecognizer(tap)
+        return cardView
     }
     
+    private func dealCards() {
+        if game.dealThreeCards() {
+            // dealing cards was successful
+            updateViewFromModel()
+        } else {
+            // dealing cards was unsuccessful, so disable dealCardsButton
+            dealCardsButton.isEnabled = false
+        }
+    }
+    
+    // MARK: Gesture Responders
     @objc func tappedCard(_ sender: UITapGestureRecognizer) {
          if let card = sender.view as! SetCardView? {
             card.selected = !card.selected
@@ -118,26 +171,8 @@ class ViewController: UIViewController {
             if let cardNumber = listOfSetCardViews.firstIndex(of: card) {
                 game.chooseCard(at: cardNumber)
             }
-            
             updateViewFromModel()
         }
-    }
-    
-    @IBAction func dealThreeCards(_ sender: UIButton) {
-        if game.dealThreeCards() {
-            updateViewFromModel()
-        } else {
-            dealCardsButton.isEnabled = false
-        }
-    }
-    
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        // update grid frame and then change card frames
-        grid.frame = playingFieldView.bounds
-        updateCardFramesFromGrid()
     }
 }
 

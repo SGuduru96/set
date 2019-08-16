@@ -19,8 +19,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="oUx-qT-7ts">
-                                <rect key="frame" x="0.0" y="44" width="414" height="788"/>
+                                <rect key="frame" x="0.0" y="70" width="414" height="762"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="a5p-eV-02d" appends="YES" id="8Oc-hI-4ah"/>
+                                </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q5t-kY-DsJ">
                                 <rect key="frame" x="169.5" y="832" width="75" height="30"/>
@@ -29,24 +33,55 @@
                                     <action selector="dealThreeCards:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aOR-LX-USz"/>
                                 </connections>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="224" translatesAutoresizingMaskIntoConstraints="NO" id="Vt2-t1-dRg">
+                                <rect key="frame" x="20" y="40" width="374" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7RD-Fy-A7k">
+                                        <rect key="frame" x="0.0" y="0.0" width="75" height="30"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="New Game">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="newGamePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RIB-H4-svK"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vR7-Iq-6Oc">
+                                        <rect key="frame" x="310" y="0.0" width="64" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="Vt2-t1-dRg" secondAttribute="top" constant="4" id="0SX-7r-5iX"/>
                             <constraint firstItem="q5t-kY-DsJ" firstAttribute="top" secondItem="oUx-qT-7ts" secondAttribute="bottom" id="5f1-8W-U1q"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="q5t-kY-DsJ" secondAttribute="bottom" id="AJP-nT-JXo"/>
+                            <constraint firstItem="Vt2-t1-dRg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Nrk-7c-wJF"/>
                             <constraint firstItem="oUx-qT-7ts" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Qsq-rA-yS6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oUx-qT-7ts" secondAttribute="trailing" id="Wj8-1i-ZSZ"/>
-                            <constraint firstItem="oUx-qT-7ts" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="mqT-bD-O1X"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Vt2-t1-dRg" secondAttribute="trailing" constant="20" id="nfh-lw-jeI"/>
                             <constraint firstItem="q5t-kY-DsJ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="oyk-Km-CSd"/>
+                            <constraint firstItem="Vt2-t1-dRg" firstAttribute="bottom" secondItem="oUx-qT-7ts" secondAttribute="top" id="wUv-zz-UIg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="PlayingFieldView" destination="oUx-qT-7ts" id="JQP-Uc-A1l"/>
                         <outlet property="dealCardsButton" destination="q5t-kY-DsJ" id="trW-4K-brl"/>
+                        <outlet property="newGameButton" destination="7RD-Fy-A7k" id="Fjm-nG-72a"/>
+                        <outlet property="playingFieldView" destination="oUx-qT-7ts" id="5JJ-oM-txr"/>
+                        <outlet property="scoreLabel" destination="vR7-Iq-6Oc" id="Pr2-k8-KcQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="up" id="a5p-eV-02d">
+                    <connections>
+                        <action selector="swipeHandler:" destination="BYZ-38-t0r" id="rcG-ef-TBI"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="47.826086956521742" y="20.758928571428569"/>
         </scene>

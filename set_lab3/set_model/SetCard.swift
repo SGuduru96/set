@@ -8,11 +8,56 @@
 
 import Foundation
 
-struct SetCard: Equatable {
-    let numberOfShapes: Number
-    let shape: Shape
-    let shade: Shade
-    let color: Color
+struct SetCard: Equatable, RawRepresentable {
+    typealias RawValue = String
+    var rawValue: RawValue {
+        get {
+            var value = ""
+            
+            switch numberOfShapes {
+            case .one:
+                value += "1"
+            case .two:
+                value += "2"
+            case .three:
+                value += "3"
+            }
+            
+            switch shape {
+            case .diamond:
+                value += "d"
+            case .oval:
+                value += "o"
+            case.squiggle:
+                value += "s"
+            }
+            
+            switch shade {
+            case .open:
+                value += "op"
+            case .solid:
+                value += "so"
+            case .striped:
+                value += "st"
+            }
+            
+            switch color {
+            case .red:
+                value += "r"
+            case .green:
+                value += "g"
+            case .purple:
+                value += "p"
+            }
+            
+            return value
+        }
+    }
+    
+    var numberOfShapes: Number
+    var shape: Shape
+    var shade: Shade
+    var color: Color
     
     init(_ numShapes: Number, _ shape: Shape, _ shade: Shade, _ color: Color) {
         
@@ -20,6 +65,64 @@ struct SetCard: Equatable {
         self.shape = shape
         self.shade = shade
         self.color = color
+    }
+    
+    init?(rawValue: String) {
+        let chars = Array(rawValue)
+        
+        // defaults for fail
+        numberOfShapes = .one
+        shape = .diamond
+        shade = .open
+        color = .green
+        
+        // number of shapes
+        switch chars[0] {
+        case "1":
+            numberOfShapes = .one
+        case "2":
+            numberOfShapes = .two
+        case "3":
+            numberOfShapes = .three
+        default:
+            assert(false, "rawValue[0]: \(chars[0]) has to be 1, 2, or 3.")
+        }
+        
+        // shape
+        switch chars[1] {
+        case "d":
+            shape = .diamond
+        case "o":
+            shape = .oval
+        case "s":
+            shape = .squiggle
+        default:
+            assert(false, "rawValue[1]: \(chars[1]) has to be d, o, or s.")
+        }
+        
+        // shade
+        switch chars[2..<4] {
+        case ["o","p"]:
+            shade = .open
+        case ["s", "o"]:
+            shade = .solid
+        case ["s", "t"]:
+            shade = .striped
+        default:
+            assert(false, "rawValue[2..<4]: \(chars[2..<4]) has to be op, so, or st.")
+        }
+        
+        // color
+        switch chars[4] {
+        case "r":
+            color = .red
+        case "g":
+            color = .green
+        case "p":
+            color = .purple
+        default:
+            assert(false, "rawValue[4]: \(chars[4]) has to be r, g, or p.")
+        }
     }
     
     func match(with cardTwo: SetCard, and cardThree: SetCard) -> Bool {

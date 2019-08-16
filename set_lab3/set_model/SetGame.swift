@@ -88,8 +88,10 @@ class SetGame {
         score += 1
         
         for card in selectedCards {
+            // add to matched card
             matchedCards.append(card)
             
+            // remove or replace card
             let indexInDealtCards = dealtCards.firstIndex(of: card)!
             if let newCard = cardDeck.draw(), dealtCards.count <= startingNumberOfCards {
                 dealtCards[indexInDealtCards] = newCard

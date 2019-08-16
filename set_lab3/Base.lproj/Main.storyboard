@@ -19,21 +19,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="oUx-qT-7ts">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="788"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q5t-kY-DsJ">
+                                <rect key="frame" x="169.5" y="832" width="75" height="30"/>
+                                <state key="normal" title="Deal Three"/>
+                                <connections>
+                                    <action selector="dealThreeCards:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aOR-LX-USz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="oUx-qT-7ts" secondAttribute="bottom" id="JlH-AR-XZn"/>
+                            <constraint firstItem="q5t-kY-DsJ" firstAttribute="top" secondItem="oUx-qT-7ts" secondAttribute="bottom" id="5f1-8W-U1q"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="q5t-kY-DsJ" secondAttribute="bottom" id="AJP-nT-JXo"/>
                             <constraint firstItem="oUx-qT-7ts" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Qsq-rA-yS6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oUx-qT-7ts" secondAttribute="trailing" id="Wj8-1i-ZSZ"/>
                             <constraint firstItem="oUx-qT-7ts" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="mqT-bD-O1X"/>
+                            <constraint firstItem="q5t-kY-DsJ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="oyk-Km-CSd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="PlayingFieldView" destination="oUx-qT-7ts" id="JQP-Uc-A1l"/>
+                        <outlet property="dealCardsButton" destination="q5t-kY-DsJ" id="trW-4K-brl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

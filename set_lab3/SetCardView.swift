@@ -12,6 +12,7 @@ import UIKit
 class SetCardView: UIView {
     
     // Instance Variables
+    var identification: String! = nil
     var shape: Shape = .oval { didSet { setNeedsDisplay() } }
     @IBInspectable var color: UIColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1) { didSet{ setNeedsDisplay() } }
     var shade: Shade = .open { didSet{ setNeedsDisplay() } }
@@ -42,11 +43,12 @@ class SetCardView: UIView {
         contentMode = .redraw
     }
     
-    func setCardProperties(toNumber number: Number, ofShape shape: Shape, withShade shade: Shade, ofColor color: UIColor) {
+    func setCardProperties(toNumber number: Number, ofShape shape: Shape, withShade shade: Shade, ofColor color: UIColor, withIdentification id: String) {
         self.number = number.rawValue
         self.shape = shape
         self.shade = shade
         self.color = color
+        self.identification = id
     }
     
     override func draw(_ rect: CGRect) {
@@ -83,21 +85,18 @@ class SetCardView: UIView {
     func shade(patternInPath path: UIBezierPath) {
         color.setStroke()
         color.setFill()
-        path.lineWidth = 2
         switch shade {
         case .open:
+            path.lineWidth = openLineWidth
             path.stroke()
         case .solid:
             path.fill()
         case .striped:
-            let numLines = 25
-            path.lineWidth = 4
-            let spaceBetweenLines = bounds.width / CGFloat(numLines)
-            for i in 1...numLines {
-                let lineAlong = spaceBetweenLines * CGFloat(i)
+            path.lineWidth = stripedLineWidth
+            for i in 1...numberOfStripedLines {
+                let lineAlong = spaceBetweenStripedLines * CGFloat(i)
                 path.move(to: CGPoint(x: lineAlong, y: 0.0))
                 path.addLine(to: CGPoint(x: lineAlong, y: bounds.height))
-                
             }
             path.stroke()
         }
@@ -129,6 +128,9 @@ extension SetCardView {
         static let shapeSize = CGSize(width: 1.0 / 5.0, height: 2.0 / 3.0)
         static let paddingBetweenShapes = CGFloat(1.0/25.0)
         static let shapeCornerRadius: CGFloat = 0.5
+        static let lineWidth: CGFloat = 0.01
+        static let openLineWidth: CGFloat = 0.025
+        static let stripedLineWidth: CGFloat = 0.02
     }
     
     private var shapeWidth: CGFloat {
@@ -149,6 +151,26 @@ extension SetCardView {
     
     private var shapeCornerRadius: CGFloat {
         return shapeWidth * SizeRatio.shapeCornerRadius
+    }
+    
+    private var lineWidth: CGFloat {
+        return bounds.width * SizeRatio.lineWidth
+    }
+    
+    private var openLineWidth: CGFloat {
+        return bounds.width * SizeRatio.openLineWidth
+    }
+    
+    private var stripedLineWidth: CGFloat {
+        return bounds.width * SizeRatio.stripedLineWidth
+    }
+    
+    private var numberOfStripedLines: Int {
+        return Int(0.5 * bounds.width/CGFloat(stripedLineWidth))
+    }
+    
+    private var spaceBetweenStripedLines: CGFloat {
+        return bounds.width / CGFloat(numberOfStripedLines)
     }
 }
 

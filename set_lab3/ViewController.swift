@@ -25,6 +25,9 @@ class ViewController: UIViewController {
     // MARK: Actions
     @IBAction func newGamePressed(_ sender: UIButton) {
         game.resetGame()
+        removeAllCardViewsFromPlayingField()
+        listOfSetCardViews = [SetCardView]()
+        createCards()
         updateViewFromModel()
     }
     
@@ -159,6 +162,12 @@ class ViewController: UIViewController {
         } else {
             // dealing cards was unsuccessful, so disable dealCardsButton
             dealCardsButton.isEnabled = false
+        }
+    }
+    
+    private func removeAllCardViewsFromPlayingField() {
+        for cardView in listOfSetCardViews {
+            cardView.removeFromSuperview()
         }
     }
     

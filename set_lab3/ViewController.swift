@@ -22,14 +22,33 @@ class ViewController: UIViewController {
     lazy var game = SetGame(withNumberOfCards: startingNumberOfCards)
     lazy private var grid = Grid(layout: Grid.Layout.aspectRatio(1.5), frame: playingFieldView.bounds)
 
-    // MARK: Actions
-    @IBAction func newGamePressed(_ sender: UIButton) {
-        game.resetGame()
-        removeAllCardViewsFromPlayingField()
-        listOfSetCardViews = [SetCardView]()
-        createCards()
-        updateViewFromModel()
+    // MARK: Closures
+    lazy private var newGame =  {(alert: UIAlertAction!) in
+        self.game.resetGame()
+        self.removeAllCardViewsFromPlayingField()
+        self.listOfSetCardViews = [SetCardView]()
+        self.createCards()
+        self.updateViewFromModel()
     }
+    
+    lazy private var presentMainMenu = {(alert: UIAlertAction!) in
+//        self.performSegue(withIdentifier: "mainMenuController", sender: self)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: Actions
+    
+    @IBAction func pausePressed(_ sender: UIButton) {
+        // Create a UIAlert
+        let pauseMenu = UIAlertController(title: "Paused", message: nil, preferredStyle: .actionSheet)
+        
+        pauseMenu.addAction(UIAlertAction(title: "Continue", style: .cancel, handler: nil))
+        pauseMenu.addAction(UIAlertAction(title: "Main Menu", style: .default, handler: presentMainMenu))
+        pauseMenu.addAction(UIAlertAction(title: "New Game", style: .destructive, handler: newGame))
+        
+        self.present(pauseMenu, animated: true, completion: nil)
+    }
+    
     
     @IBAction func dealThreeCards(_ sender: UIButton) {
         dealCards()
